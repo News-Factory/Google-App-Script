@@ -1,12 +1,18 @@
-function main(){
+function main(template){
   var ss=SpreadsheetApp.openById('1ZLkt6db4W-2Xt2bC6qixZezz9kTnpXuhiuGt5qLQpVc'); //
-  var template='Anglo-Saxon';
+  // var template='Red&BlueNew';           ///  <<---- NEED TO CHANGE THE TEMPLATE NAME HERE
   var sheet=ss.getSheetByName(template);
   var rowToExport=sheet.getLastRow()-1;
   // Logger.log(rowToExport);
   exportOBJ(sheet,rowToExport,template);
   //else {Logger.log("couldn't get txtId");}
 }
+
+function testIt(){
+  var template='Red&BlueNew';
+  main(template);
+}
+
 
 function exportOBJ(sheet,rowNum,template){
   //Export one row to a txt file for processing
@@ -15,14 +21,27 @@ function exportOBJ(sheet,rowNum,template){
   var waitingFolder=DriveApp.getFolderById('1ocejmhFUBdBq5kvtmXHtgNBpgbt2g51C');
   var values = sheet.getDataRange().getDisplayValues(); //[][]  
   Logger.log(values);
-  var needValues = sheet.getRange('B9:AD10').getDisplayValues();     // <<---- CHANGE THE LETTERS HERE FOR EXPORT RANGE
+
+  switch(template){
+    case 'Red&BlueNew':
+    var needValues = sheet.getRange('B9:AX10').getDisplayValues();
+    break;
+    case 'Transparent':
+    var needValues = sheet.getRange('B9:AU10').getDisplayValues();
+    break;
+    case 'Anglo-Saxon':
+    var needValues = sheet.getRange('B9:AC10').getDisplayValues();
+    break;
+
+  }
+  // var needValues = sheet.getRange('B9:AX10').getDisplayValues();     // <<---- CHANGE THE LETTERS HERE FOR EXPORT RANGE
   var timeStamp=timeStampToClassicFormat(values[rowNum][0]);
   //var template=values[rowNum][1];
   var titles = needValues[0]; //[title1, title2...]  // 
   var types = needValues[1];
   var sym = defineSymbols();
   //var txt = encryptTxtObject_mass(values,types,sym);
-  var row=massConvertRowFileURLs(values[rowNum]);
+  var row=massConvertRowFileURLs(values[rowNum], template);
   var newRow=row.slice(1);  // this needs to be done in order to avoid the time stamp becoming part of the values for AE
   // Logger.log(newRow);
   var txt=encryptTxtObject_row(titles,newRow,types,sym);

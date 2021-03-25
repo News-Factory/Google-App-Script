@@ -85,7 +85,7 @@ function mainProjectAnalyzer(){
 
 function testTheNextFunction(){
   var ss=SpreadsheetApp.getActive();
-  var transSheet=ss.getSheetByName('Anglo-Saxon');
+  var transSheet=ss.getSheetByName('Red&BlueNew');          ///  <<---- NEED TO CHANGE THE TEMPLATE NAME HERE
   var values=transSheet.getDataRange().getDisplayValues();
   var targetSheet=ss.getSheetByName('testSheet');
   var testValues = targetSheet.getDataRange();
