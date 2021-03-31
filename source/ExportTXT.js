@@ -9,10 +9,10 @@ function main(template){
 }
 
 function testIt(){
-  var template='Red&BlueNew';
+  var template='Anglo-Saxon';
+  renameFiles(template);
   main(template);
 }
-
 
 function exportOBJ(sheet,rowNum,template){
   //Export one row to a txt file for processing
@@ -41,7 +41,7 @@ function exportOBJ(sheet,rowNum,template){
   var types = needValues[1];
   var sym = defineSymbols();
   //var txt = encryptTxtObject_mass(values,types,sym);
-  var row=massConvertRowFileURLs(values[rowNum], template);
+  var row=massConvertFileURLs(values[rowNum], template);
   var newRow=row.slice(1);  // this needs to be done in order to avoid the time stamp becoming part of the values for AE
   // Logger.log(newRow);
   var txt=encryptTxtObject_row(titles,newRow,types,sym);
