@@ -52,7 +52,7 @@ function exportOBJ(sheet,rowNum,template){
   
   //var now = new Date();
   //var updateFile = DriveApp.getFileById("1EsFq_12bRn4af00JBfqdACihgC8WYS1M");
-  //updateFile.setContent(now);
+  //updateFile.setContent(now);  
 }
 
 function defineSymbols(){
